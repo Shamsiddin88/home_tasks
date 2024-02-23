@@ -9,6 +9,8 @@ import '../../utils/colors/app_colors.dart';
 import '../../utils/project_extensions.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../auth_screen/auth_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -17,18 +19,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
 
-  init() {
-    final storage = StorageRepository();
-    storage.init();
-    final isLogged = storage.getBool(key: 'isLogged');
-    print(isLogged);
-  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +85,29 @@ class _SplashScreenState extends State<SplashScreen> {
                         backgroundColor: AppColors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4.w()))),
-                    onPressed: () async {
-                      Navigator.push(
+                    onPressed: () {
+                      if (StorageRepository.getBool(key: "secondEnter")) {
+                        print("Auth");
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BoardingScreen()));
+                            builder: (context) => const AuthScreen(),
+                          ),
+                        );
+                      } else {
+                        print("Board");
+
+                        StorageRepository.setBool(key: "secondEnter", value: true);
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BoardingScreen(),
+                          ),
+                        );
+                      }
                     },
+
+
                     child: Text(
                       "Let’s start",
                       style: AppTextStyle.rubikSemiBold.copyWith(

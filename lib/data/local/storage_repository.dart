@@ -47,7 +47,7 @@ class StorageRepository {
     return "";
   }
 
-  Future<void> setBool({
+  static Future<void> setBool({
     required String key,
     required bool value,
   }) async {
@@ -57,9 +57,13 @@ class StorageRepository {
     }
   }
 
-  bool getBool({required String key}) {
-    return _preference?.getBool(key) ?? false;
+  static bool getBool({required String key}) {
+    if (_preference != null) {
+      return _preference!.getBool(key) ?? false;
+    }
+    return false;
   }
+
 
   static Future<void> setDouble({
     required String key,

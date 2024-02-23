@@ -28,7 +28,6 @@ class _BoardingScreenState extends State<BoardingScreen> {
 
   _storeOnBoardInfo() async {
     final storage = StorageRepository();
-    await storage.setBool(key: "isLogged", value: true);
 //    print(StorageRepository.getBool(key: 'isLogged'));
   }
 
