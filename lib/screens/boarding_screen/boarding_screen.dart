@@ -19,8 +19,6 @@ class BoardingScreen extends StatefulWidget {
 class _BoardingScreenState extends State<BoardingScreen> {
   int activeIndex = 0;
   final PageController pageController = PageController();
-  bool _isFirstTime = false;
-
 
   List<PageDataModel> pageDate = [
     PageDataModel(imagePath: AppImages.map, title: "The best tech market"),
@@ -28,21 +26,11 @@ class _BoardingScreenState extends State<BoardingScreen> {
     PageDataModel(imagePath: AppImages.procent, title: "Sales all the time"),
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _checkFirstTime();
+  _storeOnBoardInfo() async {
+    final storage = StorageRepository();
+    await storage.setBool(key: "isLogged", value: true);
+//    print(StorageRepository.getBool(key: 'isLogged'));
   }
-
-  Future<void> _checkFirstTime() async {
-    _isFirstTime = await StorageRepository.getBool(key: '_isFirstTime');
-    if (_isFirstTime) {
-      await StorageRepository.setBool(key: '_isFirstTime', value: true);
-    } else {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthScreen()));
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +41,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
         ),
         child: Scaffold(
           backgroundColor: AppColors.c_0001FC,
-          body:
-          Column(
+          body: Column(
             children: [
               Expanded(
                 child: PageView(
@@ -75,7 +62,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     ),
                     Column(
                       children: [
-                      40.getH(),
+                        40.getH(),
                         Image.asset(AppImages.pc),
                         Text(
                           "A lot of exclusives",
@@ -86,13 +73,12 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     ),
                     Column(
                       children: [
-                      139.getH(),
+                        139.getH(),
                         Padding(
                           padding: EdgeInsets.only(left: 19.w()),
                           child: Image.asset(AppImages.procent),
                         ),
                         45.getH(),
-
                         Text(
                           "Sales all the time",
                           style:
@@ -123,20 +109,28 @@ class _BoardingScreenState extends State<BoardingScreen> {
                 ],
               ),
               30.getH(),
-              TextButton(onPressed: (){setState(() {
-
-              });
-              if (activeIndex<pageDate.length-1){
-                activeIndex++;
-                pageController.jumpToPage(activeIndex);
-              }
-
-              else{
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>
-                const AuthScreen()));
-              }}, child: Text("Next", style: AppTextStyle.rubikSemiBold.copyWith(fontSize: 18.w()),)),
+              TextButton(
+                  onPressed: () async {
+                    setState(() {});
+                    if (activeIndex < pageDate.length - 1) {
+                      activeIndex++;
+                      pageController.jumpToPage(activeIndex);
+                    } else {
+                      await _storeOnBoardInfo();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AuthScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: Text(
+                    "Next",
+                    style:
+                        AppTextStyle.rubikSemiBold.copyWith(fontSize: 18.w()),
+                  )),
               10.getH(),
-
             ],
           ),
         ));

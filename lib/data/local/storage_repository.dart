@@ -5,13 +5,11 @@ class StorageRepository {
   static final StorageRepository instance = StorageRepository._();
   static SharedPreferences? _preference;
 
-  StorageRepository._() {
-    _init();
-  }
+  StorageRepository._() {}
 
   factory StorageRepository() => instance;
 
-  Future<void> _init() async {
+  Future<void> init() async {
     _preference = await SharedPreferences.getInstance();
   }
 
@@ -49,7 +47,7 @@ class StorageRepository {
     return "";
   }
 
-  static Future<void> setBool({
+  Future<void> setBool({
     required String key,
     required bool value,
   }) async {
@@ -59,11 +57,8 @@ class StorageRepository {
     }
   }
 
-  static bool getBool({required String key}) {
-    if (_preference != null) {
-      return _preference!.getBool(key) ?? false;
-    }
-    return false;
+  bool getBool({required String key}) {
+    return _preference?.getBool(key) ?? false;
   }
 
   static Future<void> setDouble({
