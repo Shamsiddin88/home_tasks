@@ -4,6 +4,7 @@ class AppImages {
   static const String map="assets/images/map.png";
   static const String pc="assets/images/pc.png";
   static const String procent="assets/images/procent.png";
+  static const String background="assets/images/background_image.png";
 
 
 

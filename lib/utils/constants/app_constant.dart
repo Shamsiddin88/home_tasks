@@ -3,4 +3,7 @@ class AppConstants {
   static  RegExp passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
   static  RegExp textRegExp = RegExp("[a-zA-Z]");
   static  RegExp phoneRegExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+
+  static String baseUrl = "crudapi.co.uk";
+  static String token = "0c4BHcTzI1QLQUfpDiw7CjMtk2-sJLbOOv0ZOHbOkOoCBweFrQ";
 }
