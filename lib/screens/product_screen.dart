@@ -121,7 +121,9 @@ class _ProductScreenState extends State<ProductScreen> {
                                                   builder: (context) =>
                                                       UpdateProductScreen(
                                                           productModel:
-                                                              products[index])));
+                                                              products[index], onSet: () { setState(() {
+
+                                                              }); },)));
                                         },
                                         icon: Icon(
                                           Icons.edit,
@@ -238,7 +240,9 @@ class _ProductScreenState extends State<ProductScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddProductScreen()));
+              MaterialPageRoute(builder: (context) => AddProductScreen(onSet: () { setState(() {
+
+              }); },)));
           // ProductModel productModel = ProductModel(
           //     color: Colors.red,
           //     description: "zo'r telefon",

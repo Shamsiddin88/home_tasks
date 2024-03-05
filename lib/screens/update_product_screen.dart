@@ -8,13 +8,13 @@ import '../utils/colors/app_colors.dart';
 import '../utils/styles/app_text_style.dart';
 
 class UpdateProductScreen extends StatefulWidget {
-  UpdateProductScreen({super.key, required this.productModel});
+  UpdateProductScreen({super.key, required this.productModel, required this.onSet});
 
   ProductModel productModel;
 
   @override
   State<UpdateProductScreen> createState() => _UpdateProductScreenState();
-
+final VoidCallback onSet;
 
 }
 
@@ -126,33 +126,33 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       borderRadius: BorderRadius.circular(12))
               ),
             ),
-            20.getH(),
-            TextField(
-              controller: colorController,
-              textInputAction: TextInputAction.next,
-              onChanged: (v){
-                widget.productModel=widget.productModel.copyWith(color: v.toColor());
-              },
-              decoration:
-              InputDecoration(
-        
-                  floatingLabelBehavior:
-                  FloatingLabelBehavior.always,
-                  fillColor: Colors.white  ,
-                  filled: true,
-                  hintMaxLines: 4,
-        
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                  hintText: "Enter product color",
-                  hintStyle: TextStyle(color: Colors.black, fontSize: 14),
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(12)),
-                  disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(12)),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.black),
-                      borderRadius: BorderRadius.circular(12))
-              ),
-            ),
+            // 20.getH(),
+            // TextField(
+            //   controller: colorController,
+            //   textInputAction: TextInputAction.next,
+            //   onChanged: (v){
+            //     widget.productModel=widget.productModel.copyWith(color: v.toColor());
+            //   },
+            //   decoration:
+            //   InputDecoration(
+            //
+            //       floatingLabelBehavior:
+            //       FloatingLabelBehavior.always,
+            //       fillColor: Colors.white  ,
+            //       filled: true,
+            //       hintMaxLines: 4,
+            //
+            //       contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            //       hintText: "Enter product color",
+            //       hintStyle: TextStyle(color: Colors.black, fontSize: 14),
+            //       enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black),
+            //           borderRadius: BorderRadius.circular(12)),
+            //       disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black),
+            //           borderRadius: BorderRadius.circular(12)),
+            //       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.black),
+            //           borderRadius: BorderRadius.circular(12))
+            //   ),
+            // ),
             20.getH(),
             TextField(
               controller: imageUrlController,
@@ -203,7 +203,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   {
                     if (widget.productModel.canAddModel()){
                       showSuccessMessage("SUCCESS");
-                      await productRepo.addProduct(widget.productModel);
+                      await productRepo.updateProduct(widget.productModel);
+                      widget.onSet.call();
                       Navigator.pop(context);
                       setState(() {});
                     }
