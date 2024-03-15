@@ -5,7 +5,7 @@ class StorageRepository {
   static final StorageRepository instance = StorageRepository._();
   static SharedPreferences? _preference;
 
-  StorageRepository._() {}
+  StorageRepository._();
 
   factory StorageRepository() => instance;
 
