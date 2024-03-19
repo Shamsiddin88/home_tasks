@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class StorageRepository {
   static final StorageRepository instance = StorageRepository._();
   static SharedPreferences? _preference;
@@ -9,7 +8,7 @@ class StorageRepository {
 
   factory StorageRepository() => instance;
 
-  Future<void> init() async {
+  static Future<void> init() async {
     _preference = await SharedPreferences.getInstance();
   }
 
@@ -64,7 +63,6 @@ class StorageRepository {
     return false;
   }
 
-
   static Future<void> setDouble({
     required String key,
     required double value,
@@ -98,4 +96,6 @@ class StorageRepository {
     }
     return [];
   }
+
+
 }
